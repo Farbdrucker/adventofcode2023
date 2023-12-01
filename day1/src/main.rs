@@ -39,8 +39,7 @@ fn extract_coords(input: &str) -> Option<u32> {
 
     // Stack the first and last digits to make a two-digit number
     if let (Some(first), Some(last)) = (first_digit, last_digit) {
-        let result = first * 10 + last;
-        Some(result)
+        Some(first * 10 + last)
     } else {
         None // No digits found
     }
