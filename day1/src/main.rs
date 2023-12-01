@@ -1,12 +1,13 @@
 use std::env;
 use std::fs::File;
 use std::io::Read;
+use std::path::PathBuf;
 
-fn open_file(file_path: &String) -> File {
+fn open_file(file_path: &PathBuf) -> File {
     match File::open(file_path) {
         Ok(file) => file,
         Err(_) => {
-            eprintln!("Error: Unable to open the file at '{}'", file_path);
+            eprintln!("Error: Unable to open the file at '{:?}'", file_path);
             std::process::exit(1);
         }
     }
@@ -56,10 +57,10 @@ fn main() {
     }
 
     // Extract the file path from the command-line arguments
-    let file_path = &args[1];
+    let file_path = PathBuf::from(&args[1]);
 
     // Attempt to open the file
-    let file = open_file(file_path);
+    let file = open_file(&file_path);
 
     // read the content of the file
     let content = read_to_string(&file);
