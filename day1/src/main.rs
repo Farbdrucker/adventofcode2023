@@ -45,6 +45,10 @@ fn extract_coords(input: &str) -> Option<u32> {
     }
 }
 
+fn coord_sum(lines: &[&str]) -> u32 {
+    lines.iter().filter_map(|line| extract_coords(line)).sum()
+}
+
 fn main() {
     // Get the command-line arguments
     let args: Vec<String> = env::args().collect();
@@ -67,16 +71,8 @@ fn main() {
     // Split the content into a vector of strings based on newline
     let lines: Vec<&str> = content.lines().collect();
 
-    let mut sum: u32 = 0;
-    let mut _coord: Option<u32>;
-    // Print each line
-    for line in lines {
-        _coord = extract_coords(&line);
-
-        if let Some(value) = _coord {
-            sum += value;
-        }
-    }
+    // extract the coords and add them to `sum`
+    let sum = coord_sum(&lines);
 
     println!("Sum: {}", sum)
 }
